@@ -1,0 +1,28 @@
+{
+  "name": "DiscordBot",
+  "version": "1.0.0",
+  "description": "A DiscordBot that should be able to play music, send messages and something else",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xavizus/DiscordBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xavizus/DiscordBot/issues"
+  },
+  "homepage": "https://github.com/xavizus/DiscordBot#readme",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.3",
+    "discord.js": "^12.4.1",
+    "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.2.7",
+    "ytdl-core": "^4.0.0"
+  }
+}
