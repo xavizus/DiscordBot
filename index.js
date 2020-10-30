@@ -9,6 +9,8 @@ const Discord = require('discord.js');
 const {ReactionCollector} = require('discord.js');
 const client = new Discord.Client();
 
+const discordBot = new (require('./DiscordBot'))();
+
 let guildsPlaylists = {};
 
 client.on('ready',() => {
@@ -16,6 +18,9 @@ client.on('ready',() => {
 });
 
 client.on('message', async (msg) => {
+
+    discordBot.commandParser(msg);
+    /*
    if (msg.content === prefix + 'ping') {
        let message = await msg.channel.send('pong');
 
@@ -25,7 +30,11 @@ client.on('message', async (msg) => {
 
        const reactionCollector = new ReactionCollector(message, reactionFilter);
        reactionCollector.on('collect', (reaction, user) => {
-           console.log(reaction.message.reactions.cache.get('👍').count);
+           positiveReactions = reaction.message.reactions.cache.get('👍');
+           negativeReactions = reaction.message.reactions.cache.get('👍');
+           if(positiveReactions) {
+               console.log(positiveReactions.count)
+           }
            console.log(reaction.message.reactions.cache.get('👎').count);
        });
 
@@ -48,14 +57,14 @@ client.on('message', async (msg) => {
            addedBy: msg.author.username,
            length
        });
-       msg.channel.send(`Added **${title}** to the playlist!`)
+       msg.channel.send(`Added **${title}** to the playlist!`);
    }
 
    if(msg.content === prefix + 'join') {
        if(msg.member.voice.channel) {
            const connection = await msg.member.voice.channel.join();
-           const dispatcher = connection.play(ytdl('https://www.youtube.com/watch?v=pw9DYgs5flc',{filter: 'audioonly'}), {
-               volume: 0.01
+           const dispatcher = connection.play(ytdl('https://www.youtube.com/watch?v=cOcpvP0Ztyg',{filter: 'audioonly'}), {
+               volume: 0.5
            });
            dispatcher.on('finish', () => {
                console.log('Finished playing!');
@@ -66,6 +75,7 @@ client.on('message', async (msg) => {
            msg.reply('You need to join a voice channel first!');
        }
    }
+   */
 });
 
 client.login(process.env.token);
