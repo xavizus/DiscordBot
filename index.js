@@ -6,6 +6,7 @@ require('dotenv').config();
 const prefix = require('./config');
 const ytdl = require('ytdl-core');
 const Discord = require('discord.js');
+const {ReactionCollector} = require('discord.js');
 const client = new Discord.Client();
 
 let guildsPlaylists = {};
@@ -16,7 +17,21 @@ client.on('ready',() => {
 
 client.on('message', async (msg) => {
    if (msg.content === prefix + 'ping') {
-       msg.channel.send('pong');
+       let message = await msg.channel.send('pong');
+
+       const reactionFilter = (reaction) => {
+           return true;
+       }
+
+       const reactionCollector = new ReactionCollector(message, reactionFilter);
+       reactionCollector.on('collect', (reaction, user) => {
+           console.log(reaction.message.reactions.cache.get('👍').count);
+           console.log(reaction.message.reactions.cache.get('👎').count);
+       });
+
+       message.react('👍');
+       message.react('👎');
+
    }
    if(msg.content.startsWith(prefix+'play')) {
        if(!Object.keys(guildsPlaylists).includes(msg.guild.id)) {
